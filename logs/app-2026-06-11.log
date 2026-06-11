@@ -1,0 +1,38 @@
+{"level":"info","message":"Logger server running on http://localhost:4000","timestamp":"2026-06-11T21:31:24.074Z"}
+{"level":"info","message":"Dashboard available at http://localhost:4000/dashboard","timestamp":"2026-06-11T21:31:24.076Z"}
+{"level":"info","message":"Accepting logs from: http://localhost:5173, http://localhost:3000, https://gros.ccbme.sn","timestamp":"2026-06-11T21:31:24.077Z"}
+{"level":"error","message":"Uncaught exception listen EADDRINUSE: address already in use :::4000","stack":"Error: listen EADDRINUSE: address already in use :::4000\n    at Server.setupListenHandle [as _listen2] (node:net:1940:16)\n    at listenInCluster (node:net:1997:12)\n    at Server.listen (node:net:2102:7)\n    at Object.<anonymous> (C:\\Users\\alhus\\Documents\\Projet Gestion Stock\\logging-server\\server.js:130:12)\n    at Module._compile (node:internal/modules/cjs/loader:1706:14)\n    at Object..js (node:internal/modules/cjs/loader:1839:10)\n    at Module.load (node:internal/modules/cjs/loader:1441:32)\n    at Function._load (node:internal/modules/cjs/loader:1263:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:328:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)","timestamp":"2026-06-11T21:35:45.844Z"}
+{"level":"error","message":"Uncaught exception listen EADDRINUSE: address already in use :::4000","stack":"Error: listen EADDRINUSE: address already in use :::4000\n    at Server.setupListenHandle [as _listen2] (node:net:1940:16)\n    at listenInCluster (node:net:1997:12)\n    at Server.listen (node:net:2102:7)\n    at Object.<anonymous> (C:\\Users\\alhus\\Documents\\Projet Gestion Stock\\logging-server\\server.js:130:12)\n    at Module._compile (node:internal/modules/cjs/loader:1706:14)\n    at Object..js (node:internal/modules/cjs/loader:1839:10)\n    at Module.load (node:internal/modules/cjs/loader:1441:32)\n    at Function._load (node:internal/modules/cjs/loader:1263:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:328:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)","timestamp":"2026-06-11T21:37:27.921Z"}
+{"level":"error","message":"Uncaught exception listen EADDRINUSE: address already in use :::4000","stack":"Error: listen EADDRINUSE: address already in use :::4000\n    at Server.setupListenHandle [as _listen2] (node:net:1940:16)\n    at listenInCluster (node:net:1997:12)\n    at Server.listen (node:net:2102:7)\n    at Object.<anonymous> (C:\\Users\\alhus\\Documents\\Projet Gestion Stock\\logging-server\\server.js:130:12)\n    at Module._compile (node:internal/modules/cjs/loader:1706:14)\n    at Object..js (node:internal/modules/cjs/loader:1839:10)\n    at Module.load (node:internal/modules/cjs/loader:1441:32)\n    at Function._load (node:internal/modules/cjs/loader:1263:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:328:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)","timestamp":"2026-06-11T21:38:14.673Z"}
+{"level":"info","message":"Logger server running on http://localhost:4001","timestamp":"2026-06-11T21:38:31.014Z"}
+{"level":"info","message":"Dashboard available at http://localhost:4001/dashboard","timestamp":"2026-06-11T21:38:31.019Z"}
+{"level":"info","message":"Accepting logs from: http://localhost:5173, http://localhost:3000, https://gros.ccbme.sn","timestamp":"2026-06-11T21:38:31.024Z"}
+{"level":"info","message":"Dashboard connected: PUd3ObZGHIIAz7oSAAAB","timestamp":"2026-06-11T21:38:36.843Z"}
+{"level":"info","message":"Dashboard connected: wnHl42hQOln7ZIPiAAAD","timestamp":"2026-06-11T21:38:38.352Z"}
+{"level":"info","message":"Dashboard disconnected: wnHl42hQOln7ZIPiAAAD","timestamp":"2026-06-11T21:38:52.939Z"}
+{"level":"info","message":"Dashboard connected: HrN1f6VR2makcoY2AAAF","timestamp":"2026-06-11T21:38:53.006Z"}
+{"level":"info","message":"Dashboard disconnected: PUd3ObZGHIIAz7oSAAAB","timestamp":"2026-06-11T21:38:58.356Z"}
+{"level":"info","message":"Dashboard disconnected: HrN1f6VR2makcoY2AAAF","timestamp":"2026-06-11T21:39:14.721Z"}
+{"level":"info","message":"Dashboard connected: l5uMdn0B-BPwMCErAAAH","timestamp":"2026-06-11T21:39:14.801Z"}
+{"level":"info","message":"Dashboard disconnected: l5uMdn0B-BPwMCErAAAH","timestamp":"2026-06-11T21:42:07.254Z"}
+{"level":"info","message":"Dashboard connected: RZQyV4Yi4ypbch_OAAAJ","timestamp":"2026-06-11T21:42:07.390Z"}
+{"level":"info","message":"Dashboard disconnected: RZQyV4Yi4ypbch_OAAAJ","timestamp":"2026-06-11T21:42:17.917Z"}
+{"level":"info","message":"Dashboard connected: FAeeB2fQ2ywlVs_3AAAL","timestamp":"2026-06-11T21:42:17.989Z"}
+{"level":"info","message":"Dashboard disconnected: FAeeB2fQ2ywlVs_3AAAL","timestamp":"2026-06-11T21:42:47.382Z"}
+{"level":"info","message":"Dashboard connected: P9jm_wfm1MuV1uf-AAAN","timestamp":"2026-06-11T21:42:47.461Z"}
+{"level":"info","message":"Logger server running on http://localhost:4001","timestamp":"2026-06-11T21:43:23.440Z"}
+{"level":"info","message":"Dashboard available at http://localhost:4001/dashboard","timestamp":"2026-06-11T21:43:23.442Z"}
+{"level":"info","message":"Accepting logs from: http://localhost:5173, http://localhost:9000, https://gros.ccbme.sn","timestamp":"2026-06-11T21:43:23.442Z"}
+{"level":"info","message":"Dashboard connected: wqdCw_etWu_IwHp1AAAB","timestamp":"2026-06-11T21:43:23.655Z"}
+{"level":"info","message":"Dashboard disconnected: wqdCw_etWu_IwHp1AAAB","timestamp":"2026-06-11T21:43:27.026Z"}
+{"level":"info","message":"Dashboard connected: MXsPQy_n_N74GmUSAAAD","timestamp":"2026-06-11T21:43:27.232Z"}
+{"level":"info","message":"Dashboard disconnected: MXsPQy_n_N74GmUSAAAD","timestamp":"2026-06-11T21:43:46.928Z"}
+{"level":"info","message":"Dashboard connected: XAUqEtmltOSWFpsUAAAF","timestamp":"2026-06-11T21:43:47.066Z"}
+{"level":"info","message":"Dashboard disconnected: XAUqEtmltOSWFpsUAAAF","timestamp":"2026-06-11T21:44:01.364Z"}
+{"level":"info","message":"Dashboard connected: UTQZqsfj6W-enfsWAAAH","timestamp":"2026-06-11T21:44:01.531Z"}
+{"level":"info","message":"Dashboard disconnected: UTQZqsfj6W-enfsWAAAH","timestamp":"2026-06-11T21:48:26.080Z"}
+{"level":"info","message":"Dashboard connected: v5Slg9cn6qLP3jShAAAJ","timestamp":"2026-06-11T21:48:26.182Z"}
+{"level":"info","message":"Dashboard disconnected: v5Slg9cn6qLP3jShAAAJ","timestamp":"2026-06-11T21:54:47.225Z"}
+{"level":"info","message":"Dashboard connected: EzUdtV7ASUbEMRJ9AAAL","timestamp":"2026-06-11T21:54:47.385Z"}
+{"level":"info","message":"Dashboard disconnected: EzUdtV7ASUbEMRJ9AAAL","timestamp":"2026-06-11T21:57:49.093Z"}
+{"level":"info","message":"Dashboard connected: 5vtc1uCnhoQiKHXzAAAN","timestamp":"2026-06-11T21:57:49.233Z"}

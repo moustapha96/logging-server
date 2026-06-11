@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\alhus\\Documents\\Projet Gestion Stock\\logging-server\\logs\\.6dc25574fa685dc713b05135a00e7cf301d9bb8d-audit.json",
+    "files": [
+        {
+            "date": 1781213483883,
+            "name": "C:\\Users\\alhus\\Documents\\Projet Gestion Stock\\logging-server\\logs\\app-2026-06-11.log",
+            "hash": "4b966ab2850cdf9aae02bd843a6ecdf441ff62a86a3dfd07a27b0da8340064d9"
+        }
+    ],
+    "hashType": "sha256"
+}
