@@ -8,7 +8,7 @@ services:
     environment:
       PORT: 4000
       NODE_ENV: production
-      FRONTEND_ORIGINS: "https://gros.ccbme.sn"
+      FRONTEND_ORIGINS: "https://orbitcity.sn"
       LOG_RETENTION_DAYS: 30
       MAX_REQUESTS_PER_MINUTE: 300
     volumes:
