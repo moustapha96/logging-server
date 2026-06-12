@@ -1,3 +1,4 @@
+const { randomUUID } = require("crypto");
 const router = require("express").Router();
 const { requestLogger, appLogger } = require("../config/logger");
 const { recordRequest } = require("../middleware/statsStore");
@@ -36,7 +37,7 @@ router.post("/request", (req, res) => {
     const isSuccess = success !== null ? success : (statusCode >= 200 && statusCode < 400);
 
     const logEntry = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       type: "api_request",
       method,
       url,
@@ -84,7 +85,7 @@ router.post("/pageview", (req, res) => {
     const { ip, geo, device } = req.clientInfo;
 
     const entry = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       type: "pageview",
       path,
       title,
@@ -120,7 +121,7 @@ router.post("/error", (req, res) => {
     const { ip, device } = req.clientInfo;
 
     const entry = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       type: "client_error",
       message,
       stack,
