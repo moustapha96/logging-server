@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logger Dashboard — Connexion</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --surface: #161b26;
+      --border: #2a3347;
+      --border-error: rgba(248,113,113,.5);
+      --accent: #4f8ef7;
+      --error: #f87171;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    p.sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 28px;
+    }
+
+    .field {
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      background: #0d0f14;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      padding: 10px 40px 10px 14px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    input.input-error {
+      border-color: var(--border-error) !important;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+    }
+
+    /* toggle show/hide password */
+    .toggle-pwd {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-pwd:hover { color: var(--text); }
+    .toggle-pwd svg { width: 18px; height: 18px; }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s, transform .1s;
+    }
+
+    button[type="submit"]:hover { opacity: .88; }
+    button[type="submit"]:active { transform: scale(.98); }
+
+    .error-msg {
+      display: none;
+      margin-top: 16px;
+      background: rgba(248,113,113,.08);
+      border: 1px solid rgba(248,113,113,.3);
+      border-radius: 8px;
+      color: var(--error);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      text-align: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .error-msg.visible { display: flex; }
+
+    .error-msg svg { flex-shrink: 0; width: 16px; height: 16px; }
+
+    /* shake animation on error */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-6px); }
+      40%      { transform: translateX(6px); }
+      60%      { transform: translateX(-4px); }
+      80%      { transform: translateX(4px); }
+    }
+
+    .shake { animation: shake .35s ease; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <h1>Logger Dashboard</h1>
+    <p class="sub">Entrez le mot de passe pour accéder au tableau de bord</p>
+
+    <form id="loginForm" method="POST" action="/login">
+      <div class="field">
+        <label for="password">Mot de passe</label>
+        <div class="input-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            autofocus
+            autocomplete="current-password"
+            required
+          />
+          <button type="button" class="toggle-pwd" id="toggleBtn" aria-label="Afficher le mot de passe">
+            <!-- eye icon -->
+            <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn">Se connecter</button>
+    </form>
+
+    <div class="error-msg" id="errMsg">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>Mot de passe incorrect. Veuillez réessayer.</span>
+    </div>
+  </div>
+
+  <script>
+    const input    = document.getElementById('password');
+    const errMsg   = document.getElementById('errMsg');
+    const card     = document.getElementById('card');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    // Affiche l'erreur si ?error=1
+    if (new URLSearchParams(location.search).get('error') === '1') {
+      errMsg.classList.add('visible');
+      input.classList.add('input-error');
+      card.classList.add('shake');
+      input.focus();
+      // retire la classe après l'animation pour pouvoir la rejouer
+      card.addEventListener('animationend', () => card.classList.remove('shake'), { once: true });
+      // nettoie l'URL sans recharger la page
+      history.replaceState(null, '', '/login');
+    }
+
+    // Reset état erreur quand l'utilisateur retape
+    input.addEventListener('input', () => {
+      errMsg.classList.remove('visible');
+      input.classList.remove('input-error');
+    });
+
+    // Toggle affichage mot de passe
+    toggleBtn.addEventListener('click', () => {
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      toggleBtn.setAttribute('aria-label', isPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+      toggleBtn.querySelector('svg').innerHTML = isPassword
+        ? `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+           <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+           <line x1="1" y1="1" x2="23" y2="23"/>`
+        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+           <circle cx="12" cy="12" r="3"/>`;
+    });
+  </script>
+</body>
+</html>

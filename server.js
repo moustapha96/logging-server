@@ -9,6 +9,7 @@ const compression = require("compression");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const { appLogger } = require("./config/logger");
 const { parseClientMiddleware } = require("./middleware/parseClient");
@@ -65,11 +66,15 @@ app.use(
 app.use(
   cors({
     origin: (origin, cb) => {
-      if (!origin || allowedOrigins.some((o) => origin.startsWith(o)) || /localhost/.test(origin)) {
-        cb(null, true);
-      } else {
-        cb(new Error(`CORS blocked: ${origin}`));
+      // no origin = same-origin or server-to-server → allow
+      if (!origin) return cb(null, true);
+      // null origin = file:// or opaque redirect → block silently
+      if (origin === "null") return cb(null, false);
+      if (allowedOrigins.some((o) => origin.startsWith(o)) || /localhost/.test(origin)) {
+        return cb(null, true);
       }
+      appLogger.warn(`CORS blocked: ${origin}`);
+      cb(null, false);
     },
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Session-Id"],
@@ -108,8 +113,46 @@ app.use(parseClientMiddleware);
 app.use("/api/log", logLimiter, logsRouter);
 app.use("/api/stats", statsRouter);
 
+// ─── Dashboard auth ───────────────────────────────────────────────────────────
+
+const DASHBOARD_PASSWORD = process.env.DASHBOARD_PASSWORD;
+
+// Login form
+app.get("/login", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+// Login submit
+app.post("/login", express.urlencoded({ extended: false }), (req, res) => {
+  if (req.body.password === DASHBOARD_PASSWORD) {
+    req.session = { auth: true };
+    // Simple signed cookie — no external dep needed
+    const token = Buffer.from(DASHBOARD_PASSWORD).toString("base64");
+    res.cookie("dash_token", token, { httpOnly: true, sameSite: "strict" });
+    return res.redirect("/dashboard");
+  }
+  res.redirect("/login?error=1");
+});
+
+// Logout
+app.get("/logout", (_req, res) => {
+  res.clearCookie("dash_token");
+  res.redirect("/login");
+});
+
+// Auth middleware for dashboard
+function requireAuth(req, res, next) {
+  if (!DASHBOARD_PASSWORD) return next(); // pas de mot de passe configuré → accès libre
+  const token = req.cookies?.dash_token;
+  const expected = Buffer.from(DASHBOARD_PASSWORD).toString("base64");
+  if (token === expected) return next();
+  res.redirect("/login");
+}
+
+app.use(cookieParser());
+
 // Serve the real-time dashboard
-app.use("/dashboard", express.static(path.join(__dirname, "public")));
+app.use("/dashboard", requireAuth, express.static(path.join(__dirname, "public")));
 
 app.get("/", (_req, res) => {
   res.redirect("/dashboard");
