@@ -2,6 +2,7 @@ const { randomUUID } = require("crypto");
 const router = require("express").Router();
 const { requestLogger, appLogger } = require("../config/logger");
 const { recordRequest } = require("../middleware/statsStore");
+const { sendApiErrorAlert } = require("../services/mailService");
 
 /**
  * POST /api/log/request
@@ -145,6 +146,57 @@ router.post("/error", (req, res) => {
     res.status(200).json({ ok: true });
   } catch (err) {
     appLogger.error("Failed to record client error", { err: err.message });
+    res.status(500).json({ ok: false });
+  }
+});
+
+/**
+ * POST /api/log/alert-email
+ * Alerte email sur erreur API (appelé par le frontend).
+ */
+router.post("/alert-email", async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      requestData: sanitize(req.body.requestData),
+      responseData: sanitize(req.body.responseData),
+      error: req.body.error ? sanitize(req.body.error) : null,
+    };
+
+    const result = await sendApiErrorAlert(payload);
+
+    const entry = {
+      id: randomUUID(),
+      type: "api_error_alert",
+      to: payload.to,
+      method: payload.method,
+      endpoint: payload.endpoint,
+      statusCode: payload.status,
+      page: payload.page,
+      emailSent: result.ok,
+      timestamp: new Date().toISOString(),
+    };
+
+    requestLogger.warn("api_error_alert", entry);
+    recordRequest({
+      ...entry,
+      method: payload.method || "ERR",
+      endpoint: payload.endpoint || "unknown",
+      statusCode: payload.status || 500,
+      duration: payload.duration ?? null,
+    });
+
+    if (req.app.locals.io) {
+      req.app.locals.io.emit("new_log", entry);
+    }
+
+    if (!result.ok) {
+      return res.status(503).json({ ok: false, reason: result.reason });
+    }
+
+    res.status(200).json({ ok: true, id: entry.id });
+  } catch (err) {
+    appLogger.error("Failed to send alert email", { err: err.message });
     res.status(500).json({ ok: false });
   }
 });
