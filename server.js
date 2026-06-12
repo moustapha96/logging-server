@@ -20,6 +20,7 @@ const statsRouter = require("./routes/stats");
 // ─── App Setup ────────────────────────────────────────────────────────────────
 
 const app = express();
+app.set("trust proxy", 1); // nginx reverse proxy
 const httpServer = http.createServer(app);
 
 // ─── Socket.io (real-time dashboard) ─────────────────────────────────────────
